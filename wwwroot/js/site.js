@@ -46,15 +46,12 @@ function bindConnectionMessage(connection) {
     // Create a function that the hub can call to broadcast messages.
     connection.on('broadcastMessage', messageCallback);
     connection.on('echo', messageCallback);
-    connection.onclose(onConnectionError);
+    connection.onclose((error)=>{
+        if (error && error.message) {
+            console.error(error.message);
+        }
+        var modal = document.getElementById('myModal');
+        modal.classList.add('in');
+        modal.style = 'display: block;';
+    });
 }
-
-function onConnectionError(error) {
-    if (error && error.message) {
-        console.error(error.message);
-    }
-    var modal = document.getElementById('myModal');
-    modal.classList.add('in');
-    modal.style = 'display: block;';
-}
-// Write your JavaScript code.

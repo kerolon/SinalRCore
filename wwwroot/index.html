@@ -40,29 +40,31 @@
     <!--Add script to update the page and send messages.-->
     <script type="text/javascript" src="js/site.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Set initial focus to message input box.
-            var messageInput = document.getElementById('message');
-            messageInput.focus();
-            var connection = new signalR.HubConnectionBuilder()
-                                        .withUrl('/chat')
-                                        .build();
-            bindConnectionMessage(connection);
-            connection.start()
-            .then(function () {
-                initializeControlls(connection);
-            })
-            .catch(function (error) {
-                if (error) {
-                    if (error.message) {
-                        console.error(error.message);
+        (()=>{
+            document.addEventListener('DOMContentLoaded', function () {
+                // Set initial focus to message input box.
+                var messageInput = document.getElementById('message');
+                messageInput.focus();
+                var connection = new signalR.HubConnectionBuilder()
+                                            .withUrl('/chat')
+                                            .build();
+                bindConnectionMessage(connection);
+                connection.start()
+                .then(function () {
+                    initializeControlls(connection);
+                })
+                .catch(function (error) {
+                    if (error) {
+                        if (error.message) {
+                            console.error(error.message);
+                        }
+                        if (error.statusCode && error.statusCode === 401) {
+                            appendMessage('_BROADCAST_', 'You\'re not logged in. Click <a href="/login">here</a> to login with GitHub.');
+                        }
                     }
-                    if (error.statusCode && error.statusCode === 401) {
-                        appendMessage('_BROADCAST_', 'You\'re not logged in. Click <a href="/login">here</a> to login with GitHub.');
-                    }
-                }
+                });
             });
-        });
+        })();
         function initializeControlls(connection) {
             var messageInput = document.getElementById('message');
             console.log('connection started');
