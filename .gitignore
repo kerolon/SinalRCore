@@ -1,6 +1,0 @@
-bin/
-.vscode/
-obj/
-Properties/
-*.min.js
-*.min.css
