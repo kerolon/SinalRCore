@@ -1,6 +1,6 @@
 using System;
 
-namespace src.Models
+namespace signalR.Models
 {
     public class ErrorViewModel
     {

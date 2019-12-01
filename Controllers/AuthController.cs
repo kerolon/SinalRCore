@@ -2,7 +2,7 @@ using AspNet.Security.OAuth.GitHub;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
-namespace src.Controllers
+namespace signalR.Controllers
 {
     [Route("/")]
     public class AuthController : Controller

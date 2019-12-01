@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 
 
-namespace src
+namespace signalR
 {
     [Authorize]
     public class Chat : Hub

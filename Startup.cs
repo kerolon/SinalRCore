@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Newtonsoft.Json.Linq;
 
-namespace src
+namespace signalR
 {
     public class Startup
     {
