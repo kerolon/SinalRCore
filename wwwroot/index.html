@@ -50,7 +50,7 @@
             bindConnectionMessage(connection);
             connection.start()
             .then(function () {
-                onConnected(connection);
+                initializeControlls(connection);
             })
             .catch(function (error) {
                 if (error) {
@@ -63,6 +63,37 @@
                 }
             });
         });
+        function initializeControlls(connection) {
+            var messageInput = document.getElementById('message');
+            console.log('connection started');
+            document.getElementById('sendmessage').addEventListener('click', function (event) {
+                if (messageInput.value) {
+                    connection
+                        .invoke('broadcastMessage', messageInput.value)
+                        .catch(e => appendMessage('_BROADCAST_', e.message));
+                }
+
+                messageInput.value = '';
+                messageInput.focus();
+                event.preventDefault();
+            });
+            document.getElementById('message').addEventListener('keypress', function (event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById('sendmessage').click();
+                    return false;
+                }
+            });
+            document.getElementById('echo').addEventListener('click', function (event) {
+                // Call the echo method on the hub.
+                connection.send('echo', messageInput.value);
+
+                // Clear text box and reset focus for next comment.
+                messageInput.value = '';
+                messageInput.focus();
+                event.preventDefault();
+            });
+        }
     </script>
 </body>
 </html>

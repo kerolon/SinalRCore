@@ -48,39 +48,7 @@ function bindConnectionMessage(connection) {
     connection.on('echo', messageCallback);
     connection.onclose(onConnectionError);
 }
-function onConnected(connection) {
-    var messageInput = document.getElementById('message');
-    console.log('connection started');
-    document.getElementById('sendmessage').addEventListener('click', function (event) {
-        // Call the broadcastMessage method on the hub.
-        if (messageInput.value) {
-            connection
-                .invoke('broadcastMessage', messageInput.value)
-                .catch(e => appendMessage('_BROADCAST_', e.message));
-        }
 
-        // Clear text box and reset focus for next comment.
-        messageInput.value = '';
-        messageInput.focus();
-        event.preventDefault();
-    });
-    document.getElementById('message').addEventListener('keypress', function (event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            document.getElementById('sendmessage').click();
-            return false;
-        }
-    });
-    document.getElementById('echo').addEventListener('click', function (event) {
-        // Call the echo method on the hub.
-        connection.send('echo', messageInput.value);
-
-        // Clear text box and reset focus for next comment.
-        messageInput.value = '';
-        messageInput.focus();
-        event.preventDefault();
-    });
-}
 function onConnectionError(error) {
     if (error && error.message) {
         console.error(error.message);
