@@ -49,6 +49,7 @@ function bindConnectionMessage(connection) {
     connection.onclose(onConnectionError);
 }
 function onConnected(connection) {
+    var messageInput = document.getElementById('message');
     console.log('connection started');
     document.getElementById('sendmessage').addEventListener('click', function (event) {
         // Call the broadcastMessage method on the hub.
